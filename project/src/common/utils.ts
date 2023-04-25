@@ -1,6 +1,6 @@
 import Offer from '../types/offer';
 import Review from '../types/review';
-import { SortMenuItems } from './constants';
+import { NormalizedOfferTypes, OfferTypes, SortMenuItems } from './constants';
 
 export const getRatingPercent = (value: number, round = false): string => {
   const result = (round ? Math.round(value) : value) / 0.05;
@@ -9,6 +9,10 @@ export const getRatingPercent = (value: number, round = false): string => {
 
 export function getRandomArrayItem<T>(items: T[]) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+export function getSlicedArrayItems<T>(items: T[], countSliced: number) {
+  return items.slice(0, items.length > countSliced ? countSliced : items.length);
 }
 
 export const getCapitalized = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
@@ -56,4 +60,19 @@ export const getReviewTime = (date: string): string => {
   const monthName = itemDate.toLocaleString('en-EN', { month: 'long' });
 
   return `${monthName} ${itemDate.getFullYear()}`;
+};
+
+export const getNormalizedOfferTypeName = (type: string): string => {
+  switch (type) {
+    case OfferTypes.Apartment:
+      return NormalizedOfferTypes.Apartment;
+    case OfferTypes.Hotel:
+      return NormalizedOfferTypes.Hotel;
+    case OfferTypes.House:
+      return NormalizedOfferTypes.House;
+    case OfferTypes.Room:
+      return NormalizedOfferTypes.Room;
+  }
+
+  return getCapitalized(type);
 };

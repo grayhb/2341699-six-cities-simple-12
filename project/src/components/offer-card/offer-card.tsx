@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getRatingPercent } from '../../common/utils';
+import { getNormalizedOfferTypeName, getRatingPercent } from '../../common/utils';
 import Offer from '../../types/offer';
 
 type PlaceCardProps = {
@@ -50,7 +50,7 @@ function OfferCard({ item, isNearPlace, onChangeActiveOffer }: PlaceCardProps): 
             {item.title}
           </Link>
         </h2>
-        <p className="place-card__type">{item.type}</p>
+        <p className="place-card__type">{getNormalizedOfferTypeName(item.type)}</p>
       </div>
     </article>
   );

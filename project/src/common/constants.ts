@@ -46,15 +46,38 @@ export enum Cities {
   Dusseldorf = 'Dusseldorf'
 }
 
+export enum OfferTypes {
+  Room = 'room',
+  Apartment = 'apartment',
+  House = 'house',
+  Hotel = 'hotel'
+}
+
+export enum NormalizedOfferTypes {
+  Room = 'Private room',
+  Apartment = 'Apartment',
+  House = 'House',
+  Hotel = 'Hotel'
+}
+
 export const API_URL = 'https://12.react.pages.academy/six-cities-simple';
 export const REQUEST_TIMEOUT = 5000;
 
-export const URL_MARKER_DEFAULT = './img/pin.svg';
-
-export const URL_MARKER_CURRENT = './img/pin-active.svg';
+export enum MapMarkers {
+  Default = './img/pin.svg',
+  Current = './img/pin-active.svg'
+}
 
 export const AUTH_TOKEN_KEY_NAME = 'x-token';
 
 export const MAX_OFFERS_NEARBY = 3;
+export const MAX_OFFER_IMAGES = 6;
 
 export const MAX_REVIEWS = 10;
+
+export enum ReviewFormSettings {
+  MinCommentLength = 50,
+  MaxCommentLength = 300,
+  MinRating = 1,
+  MaxRating = 5
+}

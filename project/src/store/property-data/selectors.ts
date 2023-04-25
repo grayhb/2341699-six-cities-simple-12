@@ -1,5 +1,5 @@
 import { MAX_REVIEWS, NameSpace } from '../../common/constants';
-import { getSortedReviews } from '../../common/utils';
+import { getSlicedArrayItems, getSortedReviews } from '../../common/utils';
 import Offer from '../../types/offer';
 import Review from '../../types/review';
 import { State } from '../../types/state';
@@ -14,8 +14,7 @@ export const getReviews = (state: State): Review[] => state[NameSpace.PropertyDa
 
 export const getSortedAndSplicedReviews = (state: State): Review[] => {
   const reviews = state[NameSpace.PropertyData].reviews;
-  return getSortedReviews(reviews)
-    .slice(0, reviews.length > MAX_REVIEWS ? MAX_REVIEWS : reviews.length);
+  return getSlicedArrayItems<Review>(getSortedReviews(reviews), MAX_REVIEWS);
 };
 
 export const getReviewsLoading = (state: State): boolean => state[NameSpace.PropertyData].reviewsLoading;

@@ -4,6 +4,7 @@ import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import { makeFakeOffer } from '../../common/mocks';
 import OfferCard from './offer-card';
+import { getNormalizedOfferTypeName } from '../../common/utils';
 
 const fakeOffer = makeFakeOffer();
 
@@ -22,7 +23,7 @@ describe('Component: OfferCard', () => {
     );
 
     expect(screen.getByText(fakeOffer.title)).toBeInTheDocument();
-    expect(screen.getByText(fakeOffer.type)).toBeInTheDocument();
+    expect(screen.getByText(getNormalizedOfferTypeName(fakeOffer.type))).toBeInTheDocument();
 
     expect(screen.getByAltText('Place')).toBeInTheDocument();
 

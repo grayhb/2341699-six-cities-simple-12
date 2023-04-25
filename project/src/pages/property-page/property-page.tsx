@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { AppRoute, PageTitles } from '../../common/constants';
-import { getCapitalized, getRatingPercent } from '../../common/utils';
+import { AppRoute, MAX_OFFER_IMAGES, PageTitles } from '../../common/constants';
+import { getNormalizedOfferTypeName, getRatingPercent, getSlicedArrayItems } from '../../common/utils';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import OfferList from '../../components/offer-list/offer-list';
@@ -63,14 +63,14 @@ function PropertyPage(): JSX.Element {
   const descriptionItems = offer.description.split('\n');
 
   // массив из первых 6 фотографий
-  const randomImages = offer.images.slice(0, offer.images.length > 6 ? 6 : offer.images.length);
+  const offerImages = getSlicedArrayItems<string>(offer.images, MAX_OFFER_IMAGES);
 
   return (
     <Fragment>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {randomImages.map((imageUrl, i) => (
+            {offerImages.map((imageUrl, i) => (
               <div key={`image_${String(i)}`} className="property__image-wrapper">
                 <img className="property__image" src={imageUrl} alt={offer.type} />
               </div>
@@ -98,7 +98,7 @@ function PropertyPage(): JSX.Element {
 
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {getCapitalized(offer.type)}
+                {getNormalizedOfferTypeName(offer.type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 {offer.bedrooms} {offer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}

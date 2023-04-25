@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { ReviewFormSettings } from '../../common/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addReviewAction } from '../../store/api-actions';
 import { getCreateReviewLoading } from '../../store/property-data/selectors';
@@ -12,7 +13,8 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const createReviewLoading = useAppSelector(getCreateReviewLoading);
 
-  const ratingArray = [5, 4, 3, 2, 1];
+  // создаем массив для рейтинга, делаем через стейт, чтобы не создавать массив при каждом рендере
+  const [ratingArray,] = useState(Array.from({ length: ReviewFormSettings.MaxRating }, (_v, i) => ReviewFormSettings.MaxRating - i));
 
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -45,7 +47,10 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
 
     const comment = commentRef.current.value;
 
-    setSubmitActive(rating !== undefined && comment.length >= 50 && comment.length <= 300 && rating > 0);
+    setSubmitActive(rating !== undefined
+      && comment.length >= ReviewFormSettings.MinCommentLength
+      && comment.length <= ReviewFormSettings.MaxCommentLength
+      && rating >= ReviewFormSettings.MinRating);
   }, [rating]);
 
   useEffect(() => {
